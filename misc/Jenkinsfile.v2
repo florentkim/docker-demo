@@ -1,14 +1,5 @@
 node {
    def commit_id
-   def DOCKER_REGISTRY
-   def DOCKER_USERNAME
-   def DOCKER_PASSWORD
-   
-    environment {
-        DOCKER_REGISTRY = "https://index.docker.io/v2/"
-        DOCKER_USERNAME = credentials('fk28')
-        DOCKER_PASSWORD = credentials('BFJF&s8HMpRSX8BS')
-    }
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
@@ -33,8 +24,8 @@ node {
      mysql.stop()
    }                                     
    stage('docker build/push') {            
-      docker.withRegistry("${DOCKER_REGISTRY}", "${DOCKER_USERNAME}", "${DOCKER_PASSWORD}") {
+     docker.withRegistry('https://index.docker.io/v2/', 'dockerhub') {
        def app = docker.build("fk28/docker-nodejs-demo:${commit_id}", '.').push()
      }                                     
    }                                       
-}                                          
+}                                       
