@@ -1,5 +1,9 @@
 node {
    def commit_id
+   def DOCKER_REGISTRY
+   def DOCKER_USERNAME
+   def DOCKER_PASSWORD
+   
     environment {
         DOCKER_REGISTRY = "https://index.docker.io/v2/"
         DOCKER_USERNAME = credentials('fk28')
